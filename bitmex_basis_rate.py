@@ -58,6 +58,7 @@ def GetDailyBasis(expiration_date, daily_prices, daily_index_prices):
 
   return daily_basis
 
+
 def GetContractExpirations(start_date, end_date):
   # Get the futures and expirations we are interested in.
   years= list(range(start_date.year, end_date.year)) + [end_date.year]
@@ -70,6 +71,7 @@ def GetContractExpirations(start_date, end_date):
                         year=2000 + int(year)))
   return contract_expirations
 
+
 def GetPrices(contracts, start_date, end_date):
   # Get the index prices and all futures prices
   index_prices = GetBTCDailyPrices(INDEX_SYMBOL, start_date, end_date)
@@ -77,6 +79,7 @@ def GetPrices(contracts, start_date, end_date):
   for contract in contracts.keys():
     futures_prices[contract] = GetBTCDailyPrices(contract, start_date, end_date)
   return index_prices, futures_prices
+
 
 def GetBasisRates(contract_expirations, futures_prices, index_prices):
   # Get the daily basis for each future
@@ -92,8 +95,10 @@ if __name__ == '__main__':
   end_date = datetime.date.today() - datetime.timedelta(days=1)
   start_date = end_date - datetime.timedelta(days=num_days)
   contract_expirations = GetContractExpirations(start_date, end_date)
-  index_prices, futures_prices = GetPrices(contract_expirations, start_date, end_date)
-  futures_basis = GetBasisRates(contract_expirations, futures_prices, index_prices)
+  index_prices, futures_prices = GetPrices(contract_expirations,
+                                           start_date, end_date)
+  futures_basis = GetBasisRates(contract_expirations, futures_prices,
+                                index_prices)
   for contract, basis in futures_basis.items():
     print(contract)
     print(basis)
