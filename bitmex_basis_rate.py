@@ -1,8 +1,6 @@
-import collections
 import datetime
 import json
 import urllib.request
-import sys
 
 SATOSHIS_PER_BITCOIN = 10**8
 INDEX_SYMBOL = '.BXBT'
@@ -55,7 +53,6 @@ def GetDailyBasis(expiration_date, daily_prices, daily_index_prices):
     except KeyError:
       # No price for the given day
       continue
-
   return daily_basis
 
 
@@ -91,7 +88,7 @@ def GetBasisRates(contract_expirations, futures_prices, index_prices):
 
 
 if __name__ == '__main__':
-  num_days = 10
+  num_days = 2
   end_date = datetime.date.today() - datetime.timedelta(days=1)
   start_date = end_date - datetime.timedelta(days=num_days)
   contract_expirations = GetContractExpirations(start_date, end_date)
