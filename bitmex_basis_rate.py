@@ -65,7 +65,7 @@ def GetDailyBasis(expiration_date, daily_prices, daily_index_prices):
       )
     except KeyError:
       # No price for the given day
-      daily_basis[day] = '??'
+      daily_basis[day] = None
       continue
   return daily_basis
 
