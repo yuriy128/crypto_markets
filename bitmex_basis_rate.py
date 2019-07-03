@@ -45,9 +45,13 @@ def GetBTCDailyPrices(symbol, start_date, num_days):
     # don't make too many http requests
     time.sleep(2)
     with urllib.request.urlopen(url) as conn:
-      for daily in json.loads(conn.read()):
+      daily_data = json.loads(conn.read())
+      for daily in daily_data:
         prices[GetDate(daily['timestamp'])] = daily['close']
-    start_date = end_date
+    if len(daily_data) == 0:
+      # no more data for this symbol
+      break
+    start_date = start_date + datetime.timedelta(days=len(daily_data))
     query_days = min((final_date - start_date).days, max_query_days)
     end_date = start_date + datetime.timedelta(days=query_days)
   return prices
