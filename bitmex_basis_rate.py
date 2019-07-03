@@ -34,7 +34,7 @@ def GetBTCDailyPrices(symbol, start_date, num_days):
 
   # Query for all the days requested
   query_days = min((final_date - start_date).days, max_query_days)
-  end_date = start_date + datetime.timedelta(days=query_days)
+  end_date = start_date + datetime.timedelta(days=num_days)
   prices = {}
   while start_date < final_date:
     start_str = start_date.isoformat()
